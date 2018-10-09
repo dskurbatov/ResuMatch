@@ -14,11 +14,26 @@ class HowItWorks extends React.Component {
   }
 
   onChange(e){
+    const textBox = document.querySelector('input[type="file"]')
+    if(e.target.value.length === 0){
+      textBox.disabled = true
+      return
+    }
+    textBox.disabled = false
     this.compareTo = compare(e.target.value)
   }
 
   onFile(evt){
+    const button = document.querySelector('.compare')
+    const file = evt.target.files[0]
+    if(file.size > 200000){
+      document.querySelector('.result').textContent = 'File must be less then 20Kb'
+      button.disabled = true
+      return  
+    }
     const reader = new FileReader()
+    button.disabled = false
+    
     reader.onload = e => {
       this.text = e.target.result
     }
@@ -36,14 +51,15 @@ class HowItWorks extends React.Component {
         <p>We calculate your match rate and let you know how to optimize your resume</p> 
         <form className="matching">
           <textarea 
-            placeholder="please copy and paste your job requirements here" 
+            maxLength="1000"
+            placeholder="please copy and paste your job requirements here. 1000 characters limit" 
             onChange={this.onChange}>
           </textarea>
           <div className="drag_and_drop"> 
-            <input type="file" onChange={this.onFile}/>
+            <input type="file" onChange={this.onFile} disabled/>
           </div>
         </form>
-        <button onClick={this.onClick}><h3>Compare</h3></button>
+        <button className="compare" onClick={this.onClick} disabled><h3>Compare</h3></button>
         <span className="result"></span>
       </section>
     )

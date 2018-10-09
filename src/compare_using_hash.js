@@ -20,7 +20,7 @@ class TextIterater {
   // return next word
   next(){
     let word = ''
-    while(/[a-zA-Z0-9'-]/.test(this.text[this.idx])){
+    while(this.text[this.idx] && /[a-zA-Z0-9'-]/.test(this.text[this.idx])){
       word += this.text[this.idx].toLowerCase()
       this.idx++
     }
@@ -42,7 +42,7 @@ function buildHash(text){
   return map
 }
 
-function compare(text){
+export default function compare(text){
   const hash = buildHash(text)
   return function(resume){
     const iterater = new TextIterater(resume)
@@ -55,7 +55,7 @@ function compare(text){
   }
 }
 
-const text = "Frontend Engineers are an essential part of Airbnb's Product Team.  Working closely with designers, we implement the user interface of our web app.  We build libraries and abstractions to make our lives easier, such as O2, our front-end toolkit.  We make the most of modern tools like React, ES6, and SASS, and we ensure our UIs work well on all screen sizes.  Some of us specialize in CSS, some in front-end infrastructure, but all of us are JavaScript pros and full-stack engineers."
-const text2 = 'We build libraries and abstractions to make our lives easier, such as O2, our front-end toolkit.  We make the most of modern tools like React, ES6, and SASS, and we ensure our UIs work well on all screen sizes.  Some of us specialize in CSS, some in front-end infrastructure, but all of us are JavaScript pros and full-stack engineers.'
-const word = "es6"
-console.log(compare(text)(text))
+// const text = "Frontend Engineers are an essential part of Airbnb's Product Team.  Working closely with designers, we implement the user interface of our web app.  We build libraries and abstractions to make our lives easier, such as O2, our front-end toolkit.  We make the most of modern tools like React, ES6, and SASS, and we ensure our UIs work well on all screen sizes.  Some of us specialize in CSS, some in front-end infrastructure, but all of us are JavaScript pros and full-stack engineers."
+// const text2 = 'We build libraries and abstractions to make our lives easier, such as O2, our front-end toolkit.  We make the most of modern tools like React, ES6, and SASS, and we ensure our UIs work well on all screen sizes.  Some of us specialize in CSS, some in front-end infrastructure, but all of us are JavaScript pros and full-stack engineers.'
+// const word = "es6"
+// console.log(compare(text)(text))
