@@ -11,12 +11,12 @@ head, body {
 
 body {
   font-family: sans-serif;
+  background: radial-gradient(#c3ebff, aliceblue, white);
 }
 
 section {
   width: 100vw;
   height: 100vh;
-  background-color: aliceblue;
   display: flex;
   flex-direction: column;
   justify-content: center;
