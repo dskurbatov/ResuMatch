@@ -14,13 +14,13 @@ class HowItWorks extends React.Component {
   }
 
   onChange(e){
-    const textBox = document.querySelector('input[type="file"]')
+    const fileBox = document.querySelector('input[type="file"]')
     const text = e.target.value
     if(text.length === 0){
-      textBox.disabled = true
+      fileBox.disabled = true
       return
     }
-    textBox.disabled = false
+    fileBox.disabled = false
     this.compareTo = compare(text)
   }
 
@@ -28,10 +28,11 @@ class HowItWorks extends React.Component {
     const button = document.querySelector('.compare')
     const file = evt.target.files[0]
     if(file.size > 200000){
-      document.querySelector('.result').textContent = 'File must be less then 20Kb'
+      document.querySelector('.result').textContent = 'File must be less then 200KB'
       button.disabled = true
       return  
     }
+    
     const reader = new FileReader()
     button.disabled = false
     
