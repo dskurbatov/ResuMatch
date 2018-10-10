@@ -15,12 +15,13 @@ class HowItWorks extends React.Component {
 
   onChange(e){
     const textBox = document.querySelector('input[type="file"]')
-    if(e.target.value.length === 0){
+    const text = e.target.value
+    if(text.length === 0){
       textBox.disabled = true
       return
     }
     textBox.disabled = false
-    this.compareTo = compare(e.target.value)
+    this.compareTo = compare(text)
   }
 
   onFile(evt){
