@@ -60,7 +60,7 @@ class HowItWorks extends React.Component {
             <input type="file" onChange={this.onFile} disabled/>
           </div>
         </form>
-        <button className="compare" onClick={this.onClick} disabled><h3>Compare</h3></button>
+        <button className="compare" onClick={this.onClick}><h3>Compare</h3></button>
         <span className="result"></span>
       </section>
     )
