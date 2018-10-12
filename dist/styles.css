@@ -1,0 +1,82 @@
+head, body {
+  width: 100%;
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background: radial-gradient(#c3ebff, aliceblue, white);
+}
+
+section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@media only screen and (max-width: 700px) {
+  .matching {
+    flex-direction: column;
+  }
+}
+button {
+  padding: 10px;
+  border-radius: 15px;
+  outline: none;
+  background-color: lightblue;
+}
+
+textarea, .drag_and_drop {
+  width: 300px;
+  height: 100px;
+  margin: 20px;
+}
+textarea {
+  outline: none;
+  border: none;
+}
+
+.drag_and_drop {
+  position: relative;
+  background-color: white;
+}
+
+.drag_and_drop:before {
+  left: 0;
+  right: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: '';
+  position: absolute;
+  border: 2px dashed grey;
+  width: calc(100% - 15px);
+  height: calc(100% - 15px);
+}
+
+input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.matching {
+  display: flex;
+}
+
+.result {
+  font-size: 40px;
+  font-style: bold;
+  color: lightskyblue;
+}
