@@ -21,7 +21,7 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /\.css/,
+        test: /\.css$/,
         //extract all css into one file
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -34,6 +34,19 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
+              name: '[name].[hash].[ext]',
+              outputPath: 'assets/'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1000000,
               name: '[name].[hash].[ext]',
               outputPath: 'assets/'
             }

@@ -49,6 +49,7 @@ class HowItWorks extends React.Component {
   render(){
     return (
       <section>
+        <img className="svg"></img>
         <h1>HOW IT WORKS</h1>
         <p>We calculate your match rate and let you know how to optimize your resume</p> 
         <form className="matching">

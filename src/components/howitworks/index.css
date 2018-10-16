@@ -49,3 +49,10 @@ input {
   font-style: bold;
   color: lightskyblue;
 }
+
+.svg {
+  width: 100px;
+  height: 100px;
+  background: url(../../images/Freesample.svg);
+  background-size: 100px 100px;
+}
