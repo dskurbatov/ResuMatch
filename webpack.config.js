@@ -2,13 +2,15 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+const extractCSS = new ExtractTextPlugin("[name].[md5:contenthash:hex:20].css")
+
 module.exports = {
   mode: 'development',
   entry: {
     app: './src/index.js'
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].[hash].js',
     path: __dirname + '/dist'
   },
   module: {
@@ -23,7 +25,7 @@ module.exports = {
         //extract all css into one file
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
+          use: ['css-loader']
         })
       }
     ]
@@ -44,6 +46,6 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     //save all extracted css files into styles.css
-    new ExtractTextPlugin("styles.css")
+    extractCSS
   ]
 }
