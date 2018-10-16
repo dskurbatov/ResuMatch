@@ -11,7 +11,8 @@ head, body {
 
 body {
   font-family: sans-serif;
-  background: radial-gradient(#c3ebff, aliceblue, white);
+  /* background: radial-gradient(#c3ebff, aliceblue, white); */
+  background-image: url(./images/bubbles-large.png);
 }
 
 section {
