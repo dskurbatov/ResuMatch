@@ -5,45 +5,56 @@ import compare from '../../compare_using_hash'
 class HowItWorks extends React.Component {
   constructor(props){
     super(props)
-    this.compareTo = null
-    this.text = null
+    this.state = {
+      compareTo: null,
+      requirementsText: null,
+      resumeText: null,
+      fileBoxDisabled: true,
+      buttonDisabled: true,
+      result: 0
+    }
 
     this.onChange = this.onChange.bind(this)
     this.onFile = this.onFile.bind(this)
     this.onClick = this.onClick.bind(this)
   }
 
-  onChange(e){
-    const fileBox = document.querySelector('input[type="file"]')
+  onChange(e){ 
     const text = e.target.value
     if(text.length === 0){
-      fileBox.disabled = true
-      return
+      return this.setState({
+        fileBoxDisabled: true
+      })
     }
-    fileBox.disabled = false
-    this.compareTo = compare(text)
+    return this.setState({
+      fileBoxDisabled: false,
+      requirementsText: text
+    })
   }
 
   onFile(evt){
-    const button = document.querySelector('.compare')
     const file = evt.target.files[0]
     if(file.size > 200000){
       document.querySelector('.result').textContent = 'File must be less then 200KB'
-      button.disabled = true
-      return  
+      return this.setState({
+        buttonDisabled: true
+      })
     }
-    
     const reader = new FileReader()
-    button.disabled = false
     
     reader.onload = e => {
-      this.text = e.target.result
+      return this.setState({
+        buttonDisabled: false,
+        resumeText: e.target.result
+      })
     }
     reader.readAsText(evt.target.files[0])
   }
 
   onClick(){
-    document.querySelector('.result').textContent = this.compareTo(this.text) + "%"
+    return this.setState({
+      result: compare(requirementsText, resumeText) + "%"
+    })
   }
 
   render(){
@@ -59,11 +70,11 @@ class HowItWorks extends React.Component {
             onChange={this.onChange}>
           </textarea>
           <div className="drag_and_drop"> 
-            <input type="file" onChange={this.onFile} disabled/>
+            <input type="file" onChange={this.onFile} disabled={this.state.fileBoxDisabled}/>
           </div>
         </form>
-        <button className="compare" onClick={this.onClick}><h3>Compare</h3></button>
-        <span className="result"></span>
+        <button className="compare" onClick={this.onClick} disabled={this.state.buttonDisabled}><h3>Compare</h3></button>
+        <span className="result">{this.state.result}</span>
       </section>
     )
   }

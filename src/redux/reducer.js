@@ -11,7 +11,7 @@ const reducer = (state=initialState, action) => {
     case SET_RESUME:
       return {
         ...state,
-        'resume_loaded': action.payload
+        "resume_loaded": action.payload
       }
     default:
       return state
