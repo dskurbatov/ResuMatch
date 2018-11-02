@@ -52,8 +52,9 @@ class HowItWorks extends React.Component {
   }
 
   onClick(){
+    const { requirementsText, resumeText} = this.state
     return this.setState({
-      result: compare(requirementsText, resumeText) + "%"
+      result: compare(requirementsText)(resumeText)
     })
   }
 
@@ -74,7 +75,7 @@ class HowItWorks extends React.Component {
           </div>
         </form>
         <button className="compare" onClick={this.onClick} disabled={this.state.buttonDisabled}><h3>Compare</h3></button>
-        <span className="result">{this.state.result}</span>
+        <span className="result">{this.state.result}%</span>
       </section>
     )
   }
