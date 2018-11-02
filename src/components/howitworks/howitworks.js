@@ -6,7 +6,6 @@ class HowItWorks extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      compareTo: null,
       requirementsText: null,
       resumeText: null,
       fileBoxDisabled: true,
@@ -75,7 +74,7 @@ class HowItWorks extends React.Component {
           </div>
         </form>
         <button className="compare" onClick={this.onClick} disabled={this.state.buttonDisabled}><h3>Compare</h3></button>
-        <span className="result">{this.state.result}%</span>
+        <span className={`result ${this.state.result > 80 ? "green" : "red"}`}>{this.state.result}%</span>
       </section>
     )
   }
