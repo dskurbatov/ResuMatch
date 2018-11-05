@@ -10,7 +10,9 @@ class HowItWorks extends React.Component {
       resumeText: null,
       fileBoxDisabled: true,
       buttonDisabled: true,
-      result: 0
+      result: 0,
+      errors: null
+      
     }
 
     this.onChange = this.onChange.bind(this)
@@ -22,21 +24,26 @@ class HowItWorks extends React.Component {
     const text = e.target.value
     if(text.length === 0){
       return this.setState({
-        fileBoxDisabled: true
+        fileBoxDisabled: true,
+        buttonDisabled: true,
+        requirementsText: null,
+        result: 0,
+        errors: 'Please enter some requirements'
       })
     }
     return this.setState({
       fileBoxDisabled: false,
-      requirementsText: text
+      requirementsText: text,
+      buttonDisabled: this.state.resumeText === null
     })
   }
 
   onFile(evt){
     const file = evt.target.files[0]
-    if(file.size > 200000){
-      document.querySelector('.result').textContent = 'File must be less then 200KB'
+    if(file.size > 200000){ 
       return this.setState({
-        buttonDisabled: true
+        buttonDisabled: true, 
+        errors: 'File must be less then 200KB'
       })
     }
     const reader = new FileReader()
@@ -47,7 +54,7 @@ class HowItWorks extends React.Component {
         resumeText: e.target.result
       })
     }
-    reader.readAsText(evt.target.files[0])
+    reader.readAsText(file)
   }
 
   onClick(){
@@ -60,7 +67,6 @@ class HowItWorks extends React.Component {
   render(){
     return (
       <section>
-        <img className="svg"></img>
         <h1>HOW IT WORKS</h1>
         <p>We calculate your match rate and let you know how to optimize your resume</p> 
         <form className="matching">
@@ -73,7 +79,8 @@ class HowItWorks extends React.Component {
             <input type="file" onChange={this.onFile} disabled={this.state.fileBoxDisabled}/>
           </div>
         </form>
-        <button className="compare" onClick={this.onClick} disabled={this.state.buttonDisabled}><h3>Compare</h3></button>
+        <button onClick={this.onClick} disabled={this.state.buttonDisabled}><h3>Compare</h3></button>
+        <span>{this.state.errors}</span>
         <span className={`result ${this.state.result > 80 ? "green" : "red"}`}>{this.state.result}%</span>
       </section>
     )

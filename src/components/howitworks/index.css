@@ -10,6 +10,7 @@ textarea, .drag_and_drop {
   height: 100px;
   margin: 20px;
 }
+
 textarea {
   outline: none;
   border: none;

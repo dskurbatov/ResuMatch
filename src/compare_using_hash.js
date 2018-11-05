@@ -39,6 +39,7 @@ function buildHash(text){
     }
     words++
   }
+  
   return map
 }
 
