@@ -1,23 +1,27 @@
 import React from 'react';
 import './index.css'
-import compare from '../../compare_using_hash'
+import split from '../../helpers/split'
+import objectBuild from '../../helpers/objectBuild'
 
 class HowItWorks extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      requirementsText: null,
-      resumeText: null,
+      requirements: {
+        map: {},
+        count: 0
+      },
+      resume: [],
       fileBoxDisabled: true,
       buttonDisabled: true,
       result: 0,
-      errors: null
-      
+      errors: null 
     }
 
     this.onChange = this.onChange.bind(this)
     this.onFile = this.onFile.bind(this)
     this.onClick = this.onClick.bind(this)
+    this.compare = this.compare.bind(this)
   }
 
   onChange(e){ 
@@ -26,15 +30,19 @@ class HowItWorks extends React.Component {
       return this.setState({
         fileBoxDisabled: true,
         buttonDisabled: true,
-        requirementsText: null,
+        requirements: {
+          map: {},
+          count: 0
+        },
         result: 0,
         errors: 'Please enter some requirements'
       })
     }
     return this.setState({
       fileBoxDisabled: false,
-      requirementsText: text,
-      buttonDisabled: this.state.resumeText === null
+      requirements: objectBuild(text),
+      buttonDisabled: this.state.resume.length === 0,
+      errors: null
     })
   }
 
@@ -49,19 +57,30 @@ class HowItWorks extends React.Component {
     const reader = new FileReader()
     
     reader.onload = e => {
+      const resume = split(e.target.result)
       return this.setState({
         buttonDisabled: false,
-        resumeText: e.target.result
+        resume
       })
     }
     reader.readAsText(file)
   }
 
   onClick(){
-    const { requirementsText, resumeText} = this.state
-    return this.setState({
-      result: compare(requirementsText)(resumeText)
-    })
+    const { requirements, resume} = this.state
+    return this.compare(requirements, resume)
+  }
+
+  compare({ map, count }, resume){
+    const len = resume.length
+    let result = 0, i, interval
+    for(i = 0; i < len; i++){
+      if(map[resume[i]]){
+        result++
+        this.setState({result: result * 100 / count})
+      }
+    }
+    return
   }
 
   render(){
